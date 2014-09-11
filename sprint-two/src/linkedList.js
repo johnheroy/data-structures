@@ -21,17 +21,14 @@ var makeLinkedList = function(){
   };
 
   list.contains = function(target){
-    var found = false;
-
     var currNode = list.head;
     while (currNode !== null) {
       if (currNode.value === target) {
-        found = true;
+        return true;
       }
       currNode= currNode.next;
     }
-
-    return found;
+    return false;
   };
 
   return list;
