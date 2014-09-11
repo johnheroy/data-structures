@@ -21,9 +21,7 @@ var makeQueue = function(){
       delete storage[length -1];
       length --;
     }
-
     return temp;
-
   };
 
   someInstance.size = function(){
