@@ -37,4 +37,40 @@ describe('binarySearchTree', function() {
     console.log(array);
     expect(array).to.eql([5,2,3]);
   });
+
+  it('should contain "maxDepth" and "minDepth" properties', function(){
+    expect(binarySearchTree.hasOwnProperty("maxDepth").to.equal(true));
+    expect(binarySearchTree.hasOwnProperty("minDepth").to.equal(true));
+  });
+
+  it('should rebalance the tree when the max depth ' +
+     'is greater than twice the min depth', function(){
+    binarySearchTree.insert(10);
+    binarySearchTree.insert(20);
+    binarySearchTree.insert(2);
+    binarySearchTree.insert(3);
+    binarySearchTree.insert(4);
+    binarySearchTree.insert(5);
+    expect(binarySearchTree.value).to.equal(5);
+    expect(binarySearchTree.left.value).to.equal(3);
+    expect(binarySearchTree.left.left.value).to.equal(2);
+    expect(binarySearchTree.left.right.value).to.equal(4);
+    expect(binarySearchTree.right.value).to.equal(20);
+    expect(binarySearchTree.right.left.value).to.equal(10);
+  });
+
 });
+
+
+
+
+// Track max/ min depth
+// fire rebuild function when max changes
+//
+
+
+
+
+
+
+
