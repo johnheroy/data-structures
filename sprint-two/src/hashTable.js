@@ -11,6 +11,12 @@ HashTable.prototype.insert = function(k, v){
   if (!this._storage[i]){
     this._storage[i] = [temp];
   } else {
+    for (var j = 0; j < this._storage[i].length; j++){
+      if (this._storage[i][j][0] === k){
+        this._storage[i][j][1] = v;
+        return;
+      }
+    }
     this._storage[i].push(temp);
   }
 };
