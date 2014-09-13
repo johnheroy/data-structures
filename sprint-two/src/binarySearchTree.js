@@ -7,6 +7,7 @@ var makeBinarySearchTree = function(value, parent){
   tree.right = null;
   tree.height = 1;
 
+
   tree.insert = function(item){
     if (item >= tree.value) {
       if (!tree.right){
@@ -24,8 +25,23 @@ var makeBinarySearchTree = function(value, parent){
   };
 
   tree.bubble = function(){
+    var leftHeight = (tree.left) ? tree.left.height : 0;
+    var rightHeight = (tree.right) ? tree.right.height : 0;
+    if (Math.abs(leftHeight - rightHeight) > 1){
+      var tempTree = rebalance(tree.flatten(), tree.parent);
+      if (tree.parent){
+        if (tree === tree.parent.left){
+          tempTree = tree.parent.left;
+        } else {
+          tempTree = tree.parent.right;
+        }
+      }
+    }
+
     if (tree.parent){
-      tree.parent.height = tree.height + 1;
+      if (tree.parent.height < tree.height + 1){
+        tree.parent.height = tree.height + 1;
+      }
       tree.parent.bubble();
     }
     return tree;
@@ -76,6 +92,33 @@ var makeBinarySearchTree = function(value, parent){
   return tree;
 };
 
+var rebalance = function(array, parent){
+  if (array.length < 1){
+    return null;
+  }
+
+  var medianIndex = Math.floor(array.length / 2);
+  var newTree = makeBinarySearchTree(array[medianIndex], parent);
+
+  // get left and right sides of the array
+  var left = array.slice(0, medianIndex);
+  var right = array.slice(medianIndex + 1);
+
+  // set children of the current tree to tree.balance(left side of array)
+  var leftTree = rebalance(left, newTree);
+  var rightTree = rebalance(right, newTree);
+
+  if (leftTree){
+    leftTree.bubble();
+    newTree.left = leftTree;
+  }
+  if (rightTree){
+    rightTree.bubble();
+    newTree.right = rightTree;
+  }
+
+  return newTree;
+};
 
 /*
  * Complexity: What is the time complexity of the above functions?
