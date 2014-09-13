@@ -22,22 +22,15 @@ var makeBinarySearchTree = function(value, parent){
         tree.left.insert(item);
       }
     }
-  };
-
-  tree.bubble = function(){
     var leftHeight = (tree.left) ? tree.left.height : 0;
     var rightHeight = (tree.right) ? tree.right.height : 0;
     if (Math.abs(leftHeight - rightHeight) > 1){
-      var tempTree = rebalance(tree.flatten(), tree.parent);
-      if (tree.parent){
-        if (tree === tree.parent.left){
-          tempTree = tree.parent.left;
-        } else {
-          tempTree = tree.parent.right;
-        }
-      }
-    }
+      console.log(leftHeight - rightHeight);
+      tree.rebalance();
+    } 
+  };
 
+  tree.bubble = function(){
     if (tree.parent){
       if (tree.parent.height < tree.height + 1){
         tree.parent.height = tree.height + 1;
@@ -89,35 +82,36 @@ var makeBinarySearchTree = function(value, parent){
     return results;
   };
 
+  tree.rebalance = function(){
+
+    var recurse = function(array, parent){
+      if (array.length < 1){
+        //debugger;
+        //parent.bubble();
+        return null;
+      }
+
+      var medianIndex = Math.floor(array.length / 2);
+      var subTree = makeBinarySearchTree(array[medianIndex], parent);
+
+      var leftArray = array.slice(0, medianIndex);
+      var rightArray = array.slice(medianIndex + 1);
+
+      subTree.left = recurse(leftArray, subTree);
+      subTree.right = recurse(rightArray, subTree);
+
+      return subTree;
+    };
+
+    var elements = tree.flatten();  // root node
+    debugger;
+    var medianIdx = Math.floor(elements.length / 2);
+    tree.value = elements[medianIdx];
+    tree.left = recurse(elements.slice(0, medianIdx), tree);
+    tree.right = recurse(elements.slice(medianIdx + 1), tree);
+  };
+
   return tree;
-};
-
-var rebalance = function(array, parent){
-  if (array.length < 1){
-    return null;
-  }
-
-  var medianIndex = Math.floor(array.length / 2);
-  var newTree = makeBinarySearchTree(array[medianIndex], parent);
-
-  // get left and right sides of the array
-  var left = array.slice(0, medianIndex);
-  var right = array.slice(medianIndex + 1);
-
-  // set children of the current tree to tree.balance(left side of array)
-  var leftTree = rebalance(left, newTree);
-  var rightTree = rebalance(right, newTree);
-
-  if (leftTree){
-    leftTree.bubble();
-    newTree.left = leftTree;
-  }
-  if (rightTree){
-    rightTree.bubble();
-    newTree.right = rightTree;
-  }
-
-  return newTree;
 };
 
 /*
