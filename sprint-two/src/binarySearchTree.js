@@ -87,7 +87,7 @@ var makeBinarySearchTree = function(value, parent){
     var recurse = function(array, parent){
       if (array.length < 1){
         //debugger;
-        //parent.bubble();
+        parent.bubble();
         return null;
       }
 
@@ -104,9 +104,10 @@ var makeBinarySearchTree = function(value, parent){
     };
 
     var elements = tree.flatten();  // root node
-    debugger;
+    //debugger;
     var medianIdx = Math.floor(elements.length / 2);
     tree.value = elements[medianIdx];
+    tree.height = 1;
     tree.left = recurse(elements.slice(0, medianIdx), tree);
     tree.right = recurse(elements.slice(medianIdx + 1), tree);
   };

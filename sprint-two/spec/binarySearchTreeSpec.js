@@ -52,7 +52,7 @@ describe('binarySearchTree', function() {
     binarySearchTree.insert(3);
     binarySearchTree.depthFirstLog(func);
     //console.log(array);
-    expect(array).to.eql([5,2,3]);
+    expect(array).to.eql([3,5,2]);
   });
 
   it('should contain "parent" property', function(){
