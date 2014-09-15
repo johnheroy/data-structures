@@ -26,7 +26,7 @@ var makeLinkedList = function(){
   };
 
   list.contains = function(target){
-    if (!makeLinkedList.head){ return; }
+    if (!list.head){ return; }
     var currentNode = list.head;
     while (currentNode !== null){
       if (currentNode.value === target){ return true; }
