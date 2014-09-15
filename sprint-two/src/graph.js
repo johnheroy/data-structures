@@ -1,4 +1,5 @@
 var Graph = function(){
+  this._storage = {};
 };
 
 Graph.prototype.addNode = function(newNode, toNode){
@@ -17,6 +18,10 @@ Graph.prototype.addEdge = function(fromNode, toNode){
 };
 
 Graph.prototype.removeEdge = function(fromNode, toNode){
+};
+
+var Node = function(){
+
 };
 
 /*
