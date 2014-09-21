@@ -32,6 +32,11 @@ describe('tree', function() {
     expect(tree.children[0].children[0].value).to.equal(6);
   });
 
+  it('should be able to chain the "addChild" method ', function () {
+    tree.addChild(5).addChild(6);
+    expect(tree.children[0].children[0].value).to.equal(6);
+  });
+
   it('should correctly detect nested children', function(){
     tree.addChild(5);
     tree.addChild(6);

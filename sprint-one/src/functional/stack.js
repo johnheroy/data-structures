@@ -3,30 +3,28 @@ var makeStack = function(){
 
   // Use an object with numeric keys to store values
   var storage = {};
+  var length = 0;
 
   // Implement the methods below
   someInstance.push = function(value){
-    var length = someInstance.size();
+
     storage[length] = value;
+    length ++;
   };
 
   someInstance.pop = function(){
-    var length = someInstance.size();
-    var result = storage[length-1];
+    if ( length > 0 ) {
+      var temp = storage[length - 1];
+      delete storage[length -1];
+      length --;
+      return temp;
+    }
 
-    delete storage[length-1];
-
-    return result;
   };
 
   someInstance.size = function(){
-    var count = 0;
-    for (var k in storage){
-      if (k === parseInt(k).toString()) {
-        count++;
-      }
-    }
-    return count;
+    return length;
+
   };
   return someInstance;
 };
